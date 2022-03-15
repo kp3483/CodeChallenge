@@ -31,7 +31,7 @@ class QuestionsViewController: UIViewController {
         questionsSearchBar.delegate = self
         stackOverflowQuestions.delegate = self
         stackOverflowQuestions.dataSource = self
-        stackOverflowQuestions.register(QuestionsTableViewCell.self, forCellReuseIdentifier: identifier)
+        stackOverflowQuestions.register(QuestionAnswerTableViewCell.self, forCellReuseIdentifier: identifier)
         questionsViewModel.delegate = self
     }
     
@@ -47,7 +47,6 @@ class QuestionsViewController: UIViewController {
             stackOverflowQuestions.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -8),
             stackOverflowQuestions.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)
         ])
-        
     }
 }
 
@@ -69,16 +68,17 @@ extension QuestionsViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? QuestionsTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? QuestionAnswerTableViewCell
         let question = questionsViewModel.questions[indexPath.row]
-        cell?.setup(question: question)
-        return cell ?? QuestionsTableViewCell()
+        cell?.setup(question: question.title)
+        return cell ?? QuestionAnswerTableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        // init viewModel with a question and load answers
-        let answerController = GuessAnswerViewController()
+        let question = questionsViewModel.questions[indexPath.row]
+        let guessAnswerViewModel = GuessAnswerViewModel(question: question)
+        let answerController = GuessAnswerViewController(viewModel: guessAnswerViewModel)
         navigationController?.pushViewController(answerController, animated: true)
     }
 }
@@ -88,4 +88,3 @@ extension QuestionsViewController: QuestionsViewModelDelegate {
         stackOverflowQuestions.reloadData()
     }
 }
-

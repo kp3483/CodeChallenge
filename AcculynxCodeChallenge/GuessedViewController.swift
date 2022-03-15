@@ -8,7 +8,7 @@
 import UIKit
 
 class GuessedViewController: UIViewController {
-    
+
     //let guessedViewModel = GuessedViewModel()
     let guessedQuestionsSearchBar = UISearchTextField(frame: .zero) // If time keep this for filtering
     let guessedQuestions = UITableView(frame: .zero)
@@ -44,15 +44,4 @@ class GuessedViewController: UIViewController {
         ])
         
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

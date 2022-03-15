@@ -8,6 +8,22 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--Stats-->
+        <scene sceneID="jl9-Wu-LGz">
+            <objects>
+                <viewController id="tcb-Iv-eDc" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PDs-LJ-Nh5">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="8Oa-pC-3H3"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Stats" id="atB-Ju-6PO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Ob-HV-Iq7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1855" y="-613"/>
+        </scene>
         <!--Questions View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -46,12 +62,14 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="Glg-UF-FjA" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="5Yn-F7-Wtr">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
                         <segue destination="Bov-sx-61O" kind="relationship" relationship="viewControllers" id="ruo-I6-v6x"/>
                         <segue destination="WWc-Xf-vvE" kind="relationship" relationship="viewControllers" id="l6d-6f-09z"/>
+                        <segue destination="tcb-Iv-eDc" kind="relationship" relationship="viewControllers" id="yjm-DK-BcJ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kbd-Gd-n57" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

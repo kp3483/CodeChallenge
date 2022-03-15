@@ -8,7 +8,7 @@
 import UIKit
 
 // TODO: If I have time look into adding a date and answer count to this cell
-class QuestionsTableViewCell: UITableViewCell {
+class QuestionAnswerTableViewCell: UITableViewCell {
     
     let questionsLabel = UILabel(frame: .zero)
     
@@ -45,8 +45,24 @@ class QuestionsTableViewCell: UITableViewCell {
         ])
     }
     
-    func setup(question: Question) {
-        print(question.id)
-        questionsLabel.text = question.title
+    func setup(question: String, guessState: GuessState = .notGuessed) {
+        print(question)
+        questionsLabel.text = question
+        
+        switch guessState {
+        case .notGuessed:
+            backgroundColor = .white
+        case .guessedCorrectly:
+            backgroundColor = .green
+        case .guessedIncorrectly:
+            backgroundColor = .red
+        }
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        questionsLabel.text = nil
+        backgroundColor = .white
     }
 }

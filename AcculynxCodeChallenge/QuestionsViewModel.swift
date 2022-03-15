@@ -35,6 +35,7 @@ class QuestionsViewModel {
              // TODO: If I have time handle Errors
             do {
                 let questionsResponse = try self?.decoder.decode(QuestionResponse.self, from: uwData)
+                print("Quota: \(questionsResponse?.quotaRemaining ?? -1)")
                 self?.questions = questionsResponse?.questions ?? []
                 DispatchQueue.main.async {
                     self?.delegate?.dataLoaded()
@@ -42,7 +43,6 @@ class QuestionsViewModel {
             } catch {
                 print(error)
             }
-            
         })
         
         task.resume()
