@@ -52,7 +52,11 @@ class QuestionsViewController: UIViewController {
 
 extension QuestionsViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        questionsViewModel.loadQuestions(text: textField.text ?? "")
+        if let text = textField.text {
+            let trimmed = text.components(separatedBy: .whitespacesAndNewlines).joined()
+            questionsViewModel.loadQuestions(text: trimmed)
+        }
+        
         return true
     }
 }

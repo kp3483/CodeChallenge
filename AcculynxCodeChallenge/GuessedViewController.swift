@@ -9,9 +9,10 @@ import UIKit
 
 class GuessedViewController: UIViewController {
 
-    //let guessedViewModel = GuessedViewModel()
+    let guessedViewModel = GuessedViewModel()
     let guessedQuestionsSearchBar = UISearchTextField(frame: .zero) // If time keep this for filtering
     let guessedQuestions = UITableView(frame: .zero)
+    let identifier = "cellReuseIdentifier"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +22,11 @@ class GuessedViewController: UIViewController {
 
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        guessedViewModel.fetchQuestions()
+    }
+    
     func updateView() {
         view.addSubview(guessedQuestionsSearchBar)
         view.addSubview(guessedQuestions)
@@ -28,6 +34,11 @@ class GuessedViewController: UIViewController {
     
     func setupView() {
         guessedQuestionsSearchBar.placeholder = "Search"
+        
+        guessedViewModel.delegate = self
+        guessedQuestions.delegate = self
+        guessedQuestions.dataSource = self
+        guessedQuestions.register(QuestionAnswerTableViewCell.self, forCellReuseIdentifier: identifier)
     }
     
     func setupConstraints() {
@@ -43,5 +54,37 @@ class GuessedViewController: UIViewController {
             guessedQuestions.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -8)
         ])
         
+    }
+}
+
+extension GuessedViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return guessedViewModel.questions.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? QuestionAnswerTableViewCell
+        let question = guessedViewModel.questions[indexPath.row]
+        cell?.setup(question: question.title)
+        return cell ?? QuestionAnswerTableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let question = guessedViewModel.questions[indexPath.row]
+        let guessAnswerViewModel = GuessAnswerViewModel(question: question)
+        let answerController = GuessAnswerViewController(viewModel: guessAnswerViewModel)
+        navigationController?.pushViewController(answerController, animated: true)
+    }
+}
+
+extension GuessedViewController: GuessedViewModelDelegate {
+    func dataLoaded() {
+        guessedQuestions.reloadData()
     }
 }

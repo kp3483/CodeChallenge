@@ -68,9 +68,11 @@ class GuessAnswerViewController: UIViewController {
     }
     
     @objc func submit() {
-        //check currently selected answer to see if correct
-        //add selected answer to guessed answer log
+        
         guard let _ = guessAnswerViewModel.selectedAnswer else { return }
+        guessAnswerViewModel.storeQuestion()
+        guessAnswerViewModel.storeAnswers()
+        guessAnswerViewModel.calculateAndStore()
         answersTableView.reloadData()
     }
 }

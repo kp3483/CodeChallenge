@@ -11,7 +11,7 @@
         <!--Stats-->
         <scene sceneID="jl9-Wu-LGz">
             <objects>
-                <viewController id="tcb-Iv-eDc" sceneMemberID="viewController">
+                <viewController id="tcb-Iv-eDc" customClass="StatisticsViewController" customModule="AcculynxCodeChallenge" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PDs-LJ-Nh5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RealmSwift
 
 struct Question: Codable {
     let id: Int
@@ -14,6 +15,18 @@ struct Question: Codable {
     enum CodingKeys: String, CodingKey {
         case id = "question_id"
         case title
+    }
+}
+
+class QuestionRealm: Object {
+    @Persisted(primaryKey: true) var id: Int = 0
+    @Persisted var title: String = ""
+    
+    convenience init(id: Int, title: String) {
+        self.init()
+        
+        self.id = id
+        self.title = title
     }
 }
 
