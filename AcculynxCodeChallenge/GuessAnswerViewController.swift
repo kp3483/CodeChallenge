@@ -73,6 +73,7 @@ class GuessAnswerViewController: UIViewController {
         guessAnswerViewModel.storeQuestion()
         guessAnswerViewModel.storeAnswers()
         guessAnswerViewModel.calculateAndStore()
+        guessAnswerViewModel.calculateAndStoreStreak()
         answersTableView.reloadData()
     }
 }

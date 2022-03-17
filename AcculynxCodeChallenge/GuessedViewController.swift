@@ -34,6 +34,7 @@ class GuessedViewController: UIViewController {
     
     func setupView() {
         guessedQuestionsSearchBar.placeholder = "Search"
+        guessedQuestionsSearchBar.delegate = self
         
         guessedViewModel.delegate = self
         guessedQuestions.delegate = self
@@ -57,6 +58,17 @@ class GuessedViewController: UIViewController {
     }
 }
 
+extension GuessedViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let text = textField.text {
+            let trimmed = text.components(separatedBy: .whitespacesAndNewlines).joined()
+            guessedViewModel.filterExistingQuestions(filter: trimmed)
+        }
+        
+        return true
+    }
+}
+
 extension GuessedViewController: UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -64,19 +76,19 @@ extension GuessedViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return guessedViewModel.questions.count
+        return guessedViewModel.filteredQuestions.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier) as? QuestionAnswerTableViewCell
-        let question = guessedViewModel.questions[indexPath.row]
+        let question = guessedViewModel.filteredQuestions[indexPath.row]
         cell?.setup(question: question.title)
         return cell ?? QuestionAnswerTableViewCell()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let question = guessedViewModel.questions[indexPath.row]
+        let question = guessedViewModel.filteredQuestions[indexPath.row]
         let guessAnswerViewModel = GuessAnswerViewModel(question: question)
         let answerController = GuessAnswerViewController(viewModel: guessAnswerViewModel)
         navigationController?.pushViewController(answerController, animated: true)

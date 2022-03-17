@@ -69,7 +69,7 @@ class StatisticsViewController: UIViewController {
 extension StatisticsViewController: StatisticsViewModelDelegate {
     func dataLoaded() {
         scoreLabel.text = "Score: \(statisticsViewModel.calculateScore())"
-        // update current streak
+        currentStreakLabel.text = "Current Streak: \(statisticsViewModel.calculateStreak())"
         totalCorrectLabel.text = "Total Correct: \(statisticsViewModel.calculateTotalCorrect())"
     }
 }

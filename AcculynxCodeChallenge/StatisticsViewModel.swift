@@ -30,6 +30,7 @@ class StatisticsViewModel {
     }
     
     func fetchGuesses() {
+        guesses = []
         let realmGuesses = realm?.objects(GuessRealm.self)
         realmGuesses?.elements.forEach({ guess in
             guesses.append(Guess(id: guess.id, questionID: guess.questionID, isAccepted: guess.isAccepted, score: guess.score))
@@ -44,6 +45,12 @@ class StatisticsViewModel {
             score += guess.score
         })
         return score
+    }
+    
+    func calculateStreak() -> Int {
+        let defaults = UserDefaults.standard
+        let streak = defaults.integer(forKey: "streak")
+        return streak
     }
     
     func calculateTotalCorrect() -> Int {

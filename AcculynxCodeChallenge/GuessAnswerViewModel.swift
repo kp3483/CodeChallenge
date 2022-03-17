@@ -123,4 +123,15 @@ class GuessAnswerViewModel {
             print(error)
         }
     }
+    
+    func calculateAndStoreStreak() {
+        guard let uwSelectedAnswer = selectedAnswer else { return }
+        let defaults = UserDefaults.standard
+        let streak = defaults.integer(forKey: "streak")
+        if uwSelectedAnswer.isAccepted {
+            defaults.set(streak + 1, forKey: "streak")
+        } else {
+            defaults.set(0, forKey: "streak")
+        }
+    }
 }
